@@ -5,9 +5,9 @@ import matplotlib.pyplot as plt
 def gen_pos_mol(N, L, n_mol0, dt, A, x0, k1, kp):
 	x = [[x0] for i in range(n_mol0)]
 	L2 = 2*L
-	less_r1 = k1 * dt
 	L_5 = L / 5
-	less_r2 = kp * dt * L_5
+	more_r1 = k1 * dt	
+	more_r2 = kp * dt * L_5
 	tmp = math.sqrt(2*A*dt)
 
 	for k in range(N):
@@ -22,14 +22,14 @@ def gen_pos_mol(N, L, n_mol0, dt, A, x0, k1, kp):
 				x_ij = L2 - x_ij
 			x[i].append(x_ij)
 			r1 = np.random.uniform(0,1)
-			if r1 < less_r1:
+			if r1 < more_r1:
 				del_ind.append(i)
 
-		for i in range(len(del_ind)):
+		for i in del_ind:
 			del x[i]
 
 		r2 = np.random.uniform(0,1)
-		if r2 < less_r2:
+		if r2 < more_r2:
 			r3 = np.random.uniform(0,1)
 			x.append([r3*L_5])
 
